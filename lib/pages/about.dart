@@ -32,8 +32,8 @@ class _AboutState extends State<About> {
               style: TextStyle(fontSize: 20), textAlign: TextAlign.center),
           subtitle: Text(
               '\n'
-              'Tela inicial: 50% \n'
-              'Calculadora: 70% \n'
+              'Tela inicial: 40% \n'
+              'Calculadora: 80% \n'
               'Dicas/Curiosidades: 0% \n'
               'Dados sobre fatura: 0% \n'
               'Quiz: 40% \n'
@@ -50,8 +50,6 @@ class _AboutState extends State<About> {
           subtitle: Text(
               '\n'
                   'Ícone/Nome App \n'
-                  'Lista de Aparelhos: valores consumo e custo: padronizar 0.00 \n'
-                  'Configurações: padronizar pontuação \n'
                   'Configurações: ao alterar kwh, atualizar os valores da Lista de Aparelhos \n',
               style: TextStyle(fontSize: 16), textAlign: TextAlign.center),
         ),

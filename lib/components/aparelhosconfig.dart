@@ -2,9 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_prime_energy/models/database.dart';
 import 'package:flutter_prime_energy/utils/database_helper.dart';
-import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_masked_text/flutter_masked_text.dart';
 
 class AparelhosConfig extends StatefulWidget {
   final String appBarTitle;
@@ -100,7 +98,11 @@ class _AparelhosConfigState extends State<AparelhosConfig> {
 //                getImageAsset(),
                 // Texto Nome
                 Padding(
-                    padding: EdgeInsets.only(top:padmin,bottom: padmin,right: padmin*1.5,left: padmin*1.5),
+                    padding: EdgeInsets.only(
+                        top: padmin,
+                        bottom: padmin,
+                        right: padmin * 1.5,
+                        left: padmin * 1.5),
                     child: TextField(
                       decoration: InputDecoration(
                           labelText: 'Nome do Aparelho',
@@ -117,13 +119,16 @@ class _AparelhosConfigState extends State<AparelhosConfig> {
                     )),
                 // Texto Quantidade
                 Padding(
-                    padding: EdgeInsets.only(top:padmin,bottom: padmin,right: padmin*1.5,left: padmin*1.5),
+                    padding: EdgeInsets.only(
+                        top: padmin,
+                        bottom: padmin,
+                        right: padmin * 1.5,
+                        left: padmin * 1.5),
                     child: TextField(
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           labelText: 'Quantidade',
-                          hintText:
-                              "Quantos desse aparelho você usa? ex: 2",
+                          hintText: "Quantos desse aparelho você usa? ex: 2",
                           hintStyle: TextStyle(fontSize: 14),
                           suffixIcon: Icon(Icons.playlist_add),
                           border: OutlineInputBorder(
@@ -136,7 +141,11 @@ class _AparelhosConfigState extends State<AparelhosConfig> {
                     )),
                 // Text Hora Dia
                 Padding(
-                    padding: EdgeInsets.only(top:padmin,bottom: padmin,right: padmin*1.5,left: padmin*1.5),
+                    padding: EdgeInsets.only(
+                        top: padmin,
+                        bottom: padmin,
+                        right: padmin * 1.5,
+                        left: padmin * 1.5),
                     child: TextField(
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
@@ -155,13 +164,16 @@ class _AparelhosConfigState extends State<AparelhosConfig> {
                     )),
                 // Text Dia Mes
                 Padding(
-                    padding: EdgeInsets.only(top:padmin,bottom: padmin,right: padmin*1.5,left: padmin*1.5),
+                    padding: EdgeInsets.only(
+                        top: padmin,
+                        bottom: padmin,
+                        right: padmin * 1.5,
+                        left: padmin * 1.5),
                     child: TextField(
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           labelText: 'Dias por mês',
-                          hintText:
-                              "Quantos dias/mês você o utiliza? ex: 30",
+                          hintText: "Quantos dias/mês você o utiliza? ex: 30",
                           hintStyle: TextStyle(fontSize: 14),
                           suffixIcon: Icon(Icons.date_range),
                           border: OutlineInputBorder(
@@ -174,7 +186,11 @@ class _AparelhosConfigState extends State<AparelhosConfig> {
                     )),
                 // Text Potencia
                 Padding(
-                    padding: EdgeInsets.only(top:padmin,bottom: padmin,right: padmin*1.5,left: padmin*1.5),
+                    padding: EdgeInsets.only(
+                        top: padmin,
+                        bottom: padmin,
+                        right: padmin * 1.5,
+                        left: padmin * 1.5),
                     child: TextField(
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
@@ -218,22 +234,12 @@ class _AparelhosConfigState extends State<AparelhosConfig> {
                       ))
                     ])),
                 // Text Kwh
-                Padding(
-                  padding: EdgeInsets.only(
-                      top: padmin,
-                      bottom: padmin * 2,
-                      left: padmin * 20,
-                      right: padmin * 20),
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                          child: Text('Valor do kWh: ' + controllerkwh.text,
-                              style: TextStyle(fontSize: 16)))
-                    ],
-                  ),
+                Center(
+                  child: Text('Valor do kWh: R\$ ' + controllerkwh.text,
+                      style: TextStyle(fontSize: 16)),
                 ),
                 Padding(
-                    padding: EdgeInsets.all(padmin),
+                    padding: EdgeInsets.all(padmin * 2),
                     child: Row(
                       children: <Widget>[
                         // botao confirma
@@ -290,14 +296,12 @@ class _AparelhosConfigState extends State<AparelhosConfig> {
     double kwh = double.parse(controllerkwh.text);
     // calculo kwh
     double kwhAparelho = (potencia * horadia * diames * quantidade / 1000);
-//    String stringkwhAparelho = kwhAparelho.toString();
-//    var teste = NumberFormat("###.0#", "en_US");
-//    teste.format(stringkwhAparelho);
     note.consumokwh = '$kwhAparelho';
-//    note.consumokwh = stringkwhAparelho;
     // valor em reais
     double totalAparelho = (kwhAparelho * kwh);
-    note.gasto = '$totalAparelho';
+    String totalAparelhoFormat = totalAparelho.toStringAsPrecision(4);
+//    note.gasto = '$totalAparelho';
+    note.gasto = '$totalAparelhoFormat';
   }
 
   // Função Resetar
@@ -443,10 +447,3 @@ Future<String> getKwhPreference() async {
 //  return kwh;
   return prefs.getString('kwh');
 }
-//
-//Future<bool> saveKwhPreference(String kwh) async {
-//  SharedPreferences prefs = await SharedPreferences.getInstance();
-////  prefs.setString("kwh", kwh);
-////  return await prefs.commit();
-//  return await prefs.setString('kwh', kwh);
-//}

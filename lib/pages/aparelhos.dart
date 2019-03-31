@@ -6,9 +6,6 @@ import 'package:sqflite/sqflite.dart';
 import 'package:flutter_prime_energy/utils/database_helper.dart';
 import 'dart:async';
 import 'package:flutter_prime_energy/components/aparelhosconfig.dart';
-import 'package:intl/intl.dart';
-import 'package:flutter_masked_text/flutter_masked_text.dart';
-
 class Aparelhos extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -60,6 +57,7 @@ class AparelhosState extends State<Aparelhos> {
         ],
       ),
       body: getNoteListView(),
+
       floatingActionButton: FloatingActionButton(
         elevation: 0.2,
         onPressed: () {
@@ -72,6 +70,14 @@ class AparelhosState extends State<Aparelhos> {
       ),
     );
   }
+
+Padding teste(){
+    ListTile(title: Text('teste'),subtitle:Text('teste'));
+    return teste();
+}
+
+
+
 
   ListView getNoteListView() {
     TextStyle titleStyle = Theme.of(context).textTheme.subhead;

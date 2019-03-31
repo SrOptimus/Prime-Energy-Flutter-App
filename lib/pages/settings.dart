@@ -64,9 +64,12 @@ class _SettingsState extends State<Settings> {
       MoneyMaskedTextController(decimalSeparator: '.', thousandSeparator: ',');
 
 //  var _controllerreais = TextEditingController();
-  var _controllerkwh = TextEditingController();
+//  var _controllerkwh = TextEditingController();
 
   String str_tarifa = '';
+
+  //dropdown menu
+  static var fase = ['Monofásico', 'Bifásico', 'Trifásico', 'Não sei'];
 
   @override
   Widget build(BuildContext context) {
@@ -120,8 +123,7 @@ class _SettingsState extends State<Settings> {
 //                    hintText: "Valor em reais (R\$), ex: 425",
                     prefixText: 'R\$ ',
                     prefixStyle: TextStyle(color: Colors.black, fontSize: 16),
-                    helperText:
-                        'Confira esses dados na sua fatura de energia elétrica',
+                    helperText: '* Dados da fatura de energia elétrica',
 //                    prefixIcon: Icon(Icons.attach_money),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5.0))),
@@ -131,6 +133,22 @@ class _SettingsState extends State<Settings> {
               padding: EdgeInsets.only(top: 15, left: 50, right: 50, bottom: 0),
               child: Text(str_tarifa))
         ])),
+
+//        Expanded(
+//            child: DropdownButton(
+//                items: fase.map((String DropItem) {
+//                  return DropdownMenuItem<String>(
+//                    value: DropItem,
+//                    child: Text(DropItem),
+//                  );
+//                }).toList(),
+//                value: fase,
+//                onChanged: (valueSelectedByUser) {
+//                  setState(() {
+//                    debugPrint('$valueSelectedByUser selecionado');
+//                  });
+//                })),
+
         /*     
         Padding(
             padding: EdgeInsets.only(top: 15, left: 50, right: 50, bottom: 0),
@@ -154,7 +172,7 @@ class _SettingsState extends State<Settings> {
             )),
    */
         Container(
-          height: 30,
+          height: 15,
         ),
         Padding(
           padding: EdgeInsets.only(left: 100, right: 100, top: 0),
@@ -258,15 +276,12 @@ class _SettingsState extends State<Settings> {
     double consumo = double.parse(_controllerconsumo.text);
     double reais = _controllerreais.numberValue;
     double tarifa = reais / consumo;
-//    tarifa.toStringAsFixed(2);
-//    tarifa.roundToDouble();
-    str_tarifa = '$tarifa';
+    String tarifaFormat = tarifa.toStringAsPrecision(2);
+    str_tarifa = '$tarifaFormat';
   }
 }
 
 Future<bool> saveKwhPreference(String kwh) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-//  prefs.setString("kwh", kwh);
-//  return await prefs.commit();
   return await prefs.setString('kwh', kwh);
 }

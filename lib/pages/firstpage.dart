@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_prime_energy/pages/about.dart';
-import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter_prime_energy/pages/aparelhos.dart';
+import 'package:flutter_prime_energy/pages/aparelhosdetails.dart';
 import 'package:flutter_prime_energy/pages/construcao.dart';
 import 'package:flutter_prime_energy/pages/dicas.dart';
 import 'package:flutter_prime_energy/pages/settings.dart';
 import 'package:flutter_prime_energy/pages/quiz.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class FirstPage extends StatefulWidget {
   @override
@@ -16,48 +16,10 @@ class FirstPage extends StatefulWidget {
 class _FirstPageState extends State<FirstPage> {
   // tamanho padding (espaçamento)
   final paddingminimo = 5.0;
+  String titulotopico = '[Título]';
 
   @override
   Widget build(BuildContext context) {
-    // widget swiper (carousel)
-    Widget swiperimgs = Container(
-        height: 250.0,
-        width: 250.0,
-        child: Swiper(
-            itemBuilder: (BuildContext context, int index) {
-              return Image.asset('images/01.jpg',
-                  fit: BoxFit.cover);
-            },
-            itemCount: 5,
-            itemWidth: 300,
-            autoplay: true,
-            pagination: SwiperPagination(),
-            control: SwiperControl()));
-//  widget carousel
-    Widget imagecarousel = Container(
-        height: 250.0,
-        width: 250.0,
-        child: Carousel(
-          boxFit: BoxFit.cover,
-          images: [
-            AssetImage('images/01.jpg'),
-            AssetImage('images/02.jpg'),
-            AssetImage('images/03.jpg'),
-            AssetImage('images/04.jpg'),
-            AssetImage('images/05.jpg'),
-            AssetImage('images/06.jpg'),
-          ],
-          autoplay: true,
-          animationCurve: Curves.fastOutSlowIn,
-          animationDuration: Duration(seconds: 2),
-          dotSize: 5.0,
-          dotColor: Colors.white,
-          dotBgColor: Colors.black54,
-          indicatorBgPadding: 4.0,
-          //testar
-          autoplayDuration: Duration(seconds: 5),
-        ));
-
     return Scaffold(
       appBar: AppBar(
         elevation: 0.2,
@@ -207,8 +169,40 @@ class _FirstPageState extends State<FirstPage> {
                   subtitle: Text('Texto 2',
                       style: TextStyle(fontSize: 16),
                       textAlign: TextAlign.center))),
-          swiperimgs,
-          imagecarousel,
+          // carousel
+          Padding(
+              padding: EdgeInsets.all(0),
+              child: CarouselSlider(
+                  items: [
+                    "images/01.jpg",
+                    "images/02.jpg",
+                    "images/03.jpg",
+                    "images/04.jpg",
+                    "images/05.jpg",
+                    "images/06.jpg",
+                  ].map((i) {
+                    return Builder(
+                      builder: (BuildContext context) {
+                        return Container(
+                            width: MediaQuery.of(context).size.width,
+                            margin: EdgeInsets.symmetric(horizontal: 5),
+                            decoration: BoxDecoration(),
+                            child: GestureDetector(
+                              child: Image.asset(i, fit: BoxFit.fill),
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => (AparelhosDetails(
+                                            imgtopico: i,
+                                            titulotopico: titulotopico))));
+                              },
+                            ));
+                      },
+                    );
+                  }).toList(),
+                  height: 185,
+                  autoPlay: true)),
           Padding(
             padding: EdgeInsets.all(paddingminimo * 2),
             child: Text('Texto 3',
