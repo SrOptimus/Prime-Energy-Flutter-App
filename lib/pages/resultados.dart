@@ -57,23 +57,7 @@ class _ResultadosState extends State<Resultados> {
 
   @override
   Widget build(BuildContext context) {
-    /*
-    // total casa
-      casarsControlled =
-      casakwControlled =
-    // total sala
-      salarsControlled =
-      salakwControlled =
-    // total quarto
-      quartorsControlled =
-      quartokwControlled =
-    // total cozinha
-      cozinharsControlled =
-      cozinhakwControlled =
-    // total outros
-      outrosrsControlled =
-      outroskwControlled =
-    */
+
 //    ?
     if (valorList == null) {
       valorList = List<DatabaseA>();

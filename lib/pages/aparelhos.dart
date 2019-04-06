@@ -6,6 +6,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:flutter_prime_energy/utils/database_helper.dart';
 import 'dart:async';
 import 'package:flutter_prime_energy/components/aparelhosconfig.dart';
+
 class Aparelhos extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -24,7 +25,6 @@ class AparelhosState extends State<Aparelhos> {
       aparelhosList = List<DatabaseA>();
       updateListView();
     }
-
     return Scaffold(
       appBar: AppBar(
         elevation: 0.2,
@@ -38,14 +38,6 @@ class AparelhosState extends State<Aparelhos> {
                   MaterialPageRoute(builder: (context) => FirstPage()));
             }),
         actions: <Widget>[
-          // botão refresh [sem função]
-//          IconButton(
-//              icon: Icon(Icons.refresh, color: Colors.white),
-//              onPressed: () {
-//                setState(() {
-//                  updateListView();
-//                });
-//              }),
           // botão config
           IconButton(
               icon: Icon(Icons.settings, color: Colors.white),
@@ -56,8 +48,13 @@ class AparelhosState extends State<Aparelhos> {
               })
         ],
       ),
-      body: getNoteListView(),
-
+      body: Stack(children: <Widget>[
+        textoTotal(),
+        Padding(
+          padding: EdgeInsets.only(top: 50),
+          child: getNoteListView(),
+        )
+      ]),
       floatingActionButton: FloatingActionButton(
         elevation: 0.2,
         onPressed: () {
@@ -71,16 +68,20 @@ class AparelhosState extends State<Aparelhos> {
     );
   }
 
-Padding teste(){
-    ListTile(title: Text('teste'),subtitle:Text('teste'));
-    return teste();
-}
-
-
-
+  Widget textoTotal() {
+    return Container(
+      height: 50,
+      child: Center(
+        child: Text(
+          'Total: [não implementado]',
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 16),
+        ),
+      ),
+    );
+  }
 
   ListView getNoteListView() {
-    TextStyle titleStyle = Theme.of(context).textTheme.subhead;
     return ListView.builder(
       itemCount: count,
       itemBuilder: (BuildContext context, int position) {
@@ -110,7 +111,7 @@ Padding teste(){
                     '\n' +
                     'Custo mensal: R\$ ' +
                     this.aparelhosList[position].gasto,
-                style: titleStyle),
+                style: Theme.of(context).textTheme.body1),
             trailing: GestureDetector(
               child: Icon(
                 Icons.delete,
@@ -195,12 +196,6 @@ Padding teste(){
       updateListView();
     }
   }
-
-//  void navigateToResults(DatabaseA note) {
-//    Navigator.push(context, MaterialPageRoute(builder: (context) {
-//      return Resultados();
-//    }));
-//  }
 
   void updateListView() {
     final Future<Database> dbFuture = databaseHelper.initializeDatabase();

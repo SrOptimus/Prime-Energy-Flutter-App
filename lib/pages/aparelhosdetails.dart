@@ -20,24 +20,27 @@ class _AparelhosDetailsState extends State<AparelhosDetails> {
           elevation: 0.2,
           title: Text('Prime Energy'),
         ),
-        body: Column(
-//          padding: EdgeInsets.all(5),
-          children: <Widget>[
-            Image.asset(widget.imgtopico, width: double.infinity),
-            ListTile(
-              trailing: GestureDetector(
-                  child: Icon(Icons.share, color: Colors.deepOrange),
-                  onTap: () {
-                    debugPrint('Share pressionado');
-                  }),
-              title: Text(widget.titulotopico,
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.black,
-                  )),
-            ),
-            Container(child: Text('[Informações]'))
-          ],
-        ));
+        body: info());
+  }
+
+  Widget info() {
+    return Column(
+      children: <Widget>[
+        Image.asset(widget.imgtopico, width: double.infinity),
+        ListTile(
+          trailing: GestureDetector(
+              child: Icon(Icons.share, color: Colors.deepOrange),
+              onTap: () {
+                debugPrint('Share pressionado');
+              }),
+          title: Text(widget.titulotopico,
+              style: TextStyle(
+                fontSize: 18,
+                color: Colors.black,
+              )),
+        ),
+        Container(child: Text('[Informações]'))
+      ],
+    );
   }
 }

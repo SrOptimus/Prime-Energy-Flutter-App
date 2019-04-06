@@ -59,7 +59,7 @@ class _AboutState extends State<About> {
               style: TextStyle(fontSize: 20), textAlign: TextAlign.center),
           subtitle: Text(
               '\n'
-              'Alpha 0.5',
+              'Alpha 1.5',
               style: TextStyle(fontSize: 16), textAlign: TextAlign.center),
         ),
       ])),

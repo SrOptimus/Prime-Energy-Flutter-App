@@ -24,7 +24,7 @@ class _AparelhosConfigState extends State<AparelhosConfig> {
 
   _AparelhosConfigState(this.note, this.appBarTitle);
 
-  //dropdown menu
+  //dropdown menu opções
   static var comodos = ['Sala', 'Quarto', 'Cozinha', 'Outro'];
 
   // tamanho padding (espaçamento)
@@ -38,12 +38,9 @@ class _AparelhosConfigState extends State<AparelhosConfig> {
   var potenciaControlled = TextEditingController();
   var controllerkwh = TextEditingController();
   var valorkwh = TextEditingController();
-  String _kwh = '0.5';
 
-//  var resultadoAparelhoReaisControlled = TextEditingController();
-//  var resultadoAparelhoConsumoControlled = TextEditingController();
-//  var resultadoAparelho1 = '';
-//  var resultadoAparelhoConsumo = '';
+  // valor inicial do kwh pra evitar crash
+  String _kwh = '0.5';
 
   @override
   void initState() {
@@ -61,16 +58,11 @@ class _AparelhosConfigState extends State<AparelhosConfig> {
     valorkwh.text = _kwh;
     controllerkwh.text = _kwh;
 
-//    resultadoAparelho1 = resultadoAparelhoReaisControlled.text;
-//    resultadoAparelhoReaisControlled.text = note.gasto;
-//    resultadoAparelhoConsumo = resultadoAparelhoConsumoControlled.text;
-//    resultadoAparelhoConsumoControlled.text = note.consumokwh;
-
     return WillPopScope(
-      onWillPop: () {
-        moveToLastScreen();
-      },
-      child: Scaffold(
+        onWillPop: () {
+          moveToLastScreen();
+        },
+        child: Scaffold(
           appBar: AppBar(
             elevation: 0.2,
             // nome appbar
@@ -91,188 +83,212 @@ class _AparelhosConfigState extends State<AparelhosConfig> {
               )
             ],
           ),
-          body: Padding(
-            padding: EdgeInsets.all(padmin),
-            child: ListView(
-              children: <Widget>[
-//                getImageAsset(),
-                // Texto Nome
-                Padding(
-                    padding: EdgeInsets.only(
-                        top: padmin,
-                        bottom: padmin,
-                        right: padmin * 1.5,
-                        left: padmin * 1.5),
-                    child: TextField(
-                      decoration: InputDecoration(
-                          labelText: 'Nome do Aparelho',
-                          hintText: "Nome do aparelho, exemplo: Computador",
-                          hintStyle: TextStyle(fontSize: 14),
-                          suffixIcon: Icon(Icons.keyboard),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0))),
-                      controller: nameControlled,
-                      onChanged: (value) {
-                        debugPrint('Something changed in nome Text Field');
-                        updateName();
-                      },
-                    )),
-                // Texto Quantidade
-                Padding(
-                    padding: EdgeInsets.only(
-                        top: padmin,
-                        bottom: padmin,
-                        right: padmin * 1.5,
-                        left: padmin * 1.5),
-                    child: TextField(
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                          labelText: 'Quantidade',
-                          hintText: "Quantos desse aparelho você usa? ex: 2",
-                          hintStyle: TextStyle(fontSize: 14),
-                          suffixIcon: Icon(Icons.playlist_add),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0))),
-                      controller: qtdControlled,
-                      onChanged: (value) {
-                        debugPrint('Something changed in qtd Text Field');
-                        updateQtd();
-                      },
-                    )),
-                // Text Hora Dia
-                Padding(
-                    padding: EdgeInsets.only(
-                        top: padmin,
-                        bottom: padmin,
-                        right: padmin * 1.5,
-                        left: padmin * 1.5),
-                    child: TextField(
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                          labelText: 'Horas por dia',
-                          hintText:
-                              "Quantas horas por dia você o utiliza? ex: 8",
-                          hintStyle: TextStyle(fontSize: 14),
-                          suffixIcon: Icon(Icons.access_time),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0))),
-                      controller: horadiaControlled,
-                      onChanged: (value) {
-                        debugPrint('Something changed in HoraDia Text Field');
-                        updateHoradia();
-                      },
-                    )),
-                // Text Dia Mes
-                Padding(
-                    padding: EdgeInsets.only(
-                        top: padmin,
-                        bottom: padmin,
-                        right: padmin * 1.5,
-                        left: padmin * 1.5),
-                    child: TextField(
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                          labelText: 'Dias por mês',
-                          hintText: "Quantos dias/mês você o utiliza? ex: 30",
-                          hintStyle: TextStyle(fontSize: 14),
-                          suffixIcon: Icon(Icons.date_range),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0))),
-                      controller: diamesControlled,
-                      onChanged: (value) {
-                        debugPrint('Something changed in DiaMes Text Field');
-                        updateDiames();
-                      },
-                    )),
-                // Text Potencia
-                Padding(
-                    padding: EdgeInsets.only(
-                        top: padmin,
-                        bottom: padmin,
-                        right: padmin * 1.5,
-                        left: padmin * 1.5),
-                    child: TextField(
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                          labelText: 'Potência',
-                          hintText: "Confira no manual a potência, ex: 250",
-                          hintStyle: TextStyle(fontSize: 14),
-                          suffixIcon: Icon(Icons.flash_on),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0))),
-                      controller: potenciaControlled,
-                      onChanged: (value) {
-                        debugPrint('Something changed in potencia Text Field');
-                        updatePotencia();
-                      },
-                    )),
-                Padding(
-                    padding: EdgeInsets.only(
-                        top: padmin * 1,
-                        bottom: padmin * 1,
-                        left: padmin * 5,
-                        right: padmin * 5),
-                    child: Row(children: <Widget>[
-                      Expanded(
-                          child: Text('Cômodo da casa:',
-                              style: TextStyle(fontSize: 16))),
-                      Expanded(
-                          child: DropdownButton(
-                        items: comodos.map((String dropDownStringItem) {
-                          return DropdownMenuItem<String>(
-                            value: dropDownStringItem,
-                            child: Text(dropDownStringItem),
-                          );
-                        }).toList(),
-                        value: getPriorityAsString(note.room),
-                        onChanged: (valueSelectedByUser) {
-                          setState(() {
-                            debugPrint('$valueSelectedByUser selecionado');
-                            updatePriorityAsInt(valueSelectedByUser);
-                          });
-                        },
-                      ))
-                    ])),
-                // Text Kwh
-                Center(
-                  child: Text('Valor do kWh: R\$ ' + controllerkwh.text,
-                      style: TextStyle(fontSize: 16)),
-                ),
-                Padding(
-                    padding: EdgeInsets.all(padmin * 2),
-                    child: Row(
-                      children: <Widget>[
-                        // botao confirma
-                        Expanded(
-                            child: RaisedButton(
-                                child: Text('Confirmar'),
-                                onPressed: () {
-                                  setState(() {
-                                    debugPrint('Botão Confirmar pressionado');
-                                    _calculoAparelho();
-                                    _save();
-                                    debugPrint("Salvo");
-                                  });
-                                })),
-                        // separação entre os botoes
-                        Container(width: padmin * 4),
-                        // botao limpar
-                        Expanded(
-                            child: RaisedButton(
-                          child: Text('Limpar'),
-                          onPressed: () {
-                            setState(() {
-                              _reset();
-                              debugPrint('Botão Limpar pressionado');
-                            });
-                          },
-                        )),
-                      ],
-                    )),
-              ],
-            ),
-          )),
+          body: ListView(
+            children: <Widget>[
+              textoNome(),
+              textoQuantidade(),
+              textoHoraDia(),
+              textoDiaMes(),
+              textoPotencia(),
+              selecionarComodo(),
+              getKWH(),
+              botoes(),
+            ],
+          ),
+        ));
+//    );
+  }
+
+  Widget textoNome() {
+    return Padding(
+        padding: EdgeInsets.only(
+            top: padmin * 2,
+            bottom: padmin,
+            right: padmin * 1.5,
+            left: padmin * 1.5),
+        child: TextField(
+          decoration: InputDecoration(
+              labelText: 'Nome do Aparelho',
+              hintText: "Nome do aparelho, exemplo: Computador",
+              hintStyle: TextStyle(fontSize: 14),
+              suffixIcon: Icon(Icons.keyboard),
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(5.0))),
+          controller: nameControlled,
+          onChanged: (value) {
+            debugPrint('Something changed in nome Text Field');
+            updateName();
+          },
+        ));
+  }
+
+  Widget textoQuantidade() {
+    return Padding(
+        padding: EdgeInsets.only(
+            top: padmin,
+            bottom: padmin,
+            right: padmin * 1.5,
+            left: padmin * 1.5),
+        child: TextField(
+          keyboardType: TextInputType.number,
+          decoration: InputDecoration(
+              labelText: 'Quantidade',
+              hintText: "Quantos desse aparelho você usa? ex: 2",
+              hintStyle: TextStyle(fontSize: 14),
+              suffixIcon: Icon(Icons.playlist_add),
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(5.0))),
+          controller: qtdControlled,
+          onChanged: (value) {
+            debugPrint('Something changed in qtd Text Field');
+            updateQtd();
+          },
+        ));
+  }
+
+  Widget textoHoraDia() {
+    return Padding(
+        padding: EdgeInsets.only(
+            top: padmin,
+            bottom: padmin,
+            right: padmin * 1.5,
+            left: padmin * 1.5),
+        child: TextField(
+          keyboardType: TextInputType.number,
+          decoration: InputDecoration(
+              labelText: 'Horas por dia',
+              hintText: "Quantas horas por dia você o utiliza? ex: 8",
+              hintStyle: TextStyle(fontSize: 14),
+              suffixIcon: Icon(Icons.access_time),
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(5.0))),
+          controller: horadiaControlled,
+          onChanged: (value) {
+            debugPrint('Something changed in HoraDia Text Field');
+            updateHoradia();
+          },
+        ));
+  }
+
+  Widget textoDiaMes() {
+    return Padding(
+        padding: EdgeInsets.only(
+            top: padmin,
+            bottom: padmin,
+            right: padmin * 1.5,
+            left: padmin * 1.5),
+        child: TextField(
+          keyboardType: TextInputType.number,
+          decoration: InputDecoration(
+              labelText: 'Dias por mês',
+              hintText: "Quantos dias/mês você o utiliza? ex: 30",
+              hintStyle: TextStyle(fontSize: 14),
+              suffixIcon: Icon(Icons.date_range),
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(5.0))),
+          controller: diamesControlled,
+          onChanged: (value) {
+            debugPrint('Something changed in DiaMes Text Field');
+            updateDiames();
+          },
+        ));
+  }
+
+  Widget textoPotencia() {
+    return Padding(
+        padding: EdgeInsets.only(
+            top: padmin,
+            bottom: padmin,
+            right: padmin * 1.5,
+            left: padmin * 1.5),
+        child: TextField(
+          keyboardType: TextInputType.number,
+          decoration: InputDecoration(
+              labelText: 'Potência',
+              hintText: "Confira no manual a potência, ex: 250",
+              hintStyle: TextStyle(fontSize: 14),
+              suffixIcon: Icon(Icons.flash_on),
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(5.0))),
+          controller: potenciaControlled,
+          onChanged: (value) {
+            debugPrint('Something changed in potencia Text Field');
+            updatePotencia();
+          },
+        ));
+  }
+
+  Widget selecionarComodo() {
+    return Padding(
+        padding: EdgeInsets.only(
+            top: padmin * 1,
+            bottom: padmin * 1,
+            left: padmin * 5,
+            right: padmin * 5),
+        child: Row(children: <Widget>[
+          Expanded(
+              child: Text('Cômodo da casa:', style: TextStyle(fontSize: 16))),
+          Expanded(
+              child: DropdownButton(
+            items: comodos.map((String dropDownStringItem) {
+              return DropdownMenuItem<String>(
+                value: dropDownStringItem,
+                child: Text(dropDownStringItem),
+              );
+            }).toList(),
+            value: getPriorityAsString(note.room),
+            onChanged: (valueSelectedByUser) {
+              setState(() {
+                debugPrint('$valueSelectedByUser selecionado');
+                updatePriorityAsInt(valueSelectedByUser);
+              });
+            },
+          ))
+        ]));
+  }
+
+  Widget getKWH() {
+    return Center(
+      child: Text('Valor do kWh: R\$ ' + controllerkwh.text,
+          style: TextStyle(fontSize: 16)),
     );
+  }
+
+  Widget botoes() {
+    return Padding(
+        padding: EdgeInsets.only(
+            top: padmin * 14, left: padmin * 2, right: padmin * 2),
+        child: Row(
+          children: <Widget>[
+            // botao confirma
+            Expanded(
+                child: RaisedButton(
+                    color: Colors.lightGreen,
+                    child: Text('Confirmar'),
+                    onPressed: () {
+                      setState(() {
+                        debugPrint('Botão Confirmar pressionado');
+                        _calculoAparelho();
+                        _save();
+                        debugPrint("Salvo");
+                      });
+                    })),
+            // separação entre os botoes
+            Container(width: padmin * 4),
+            // botao limpar
+            Expanded(
+                child: RaisedButton(
+              color: Colors.red,
+              child: Text('Limpar'),
+              onPressed: () {
+                setState(() {
+                  _reset();
+                  debugPrint('Botão Limpar pressionado');
+                });
+              },
+            )),
+          ],
+        ));
   }
 
   Widget getImageAsset() {
@@ -300,7 +316,6 @@ class _AparelhosConfigState extends State<AparelhosConfig> {
     // valor em reais
     double totalAparelho = (kwhAparelho * kwh);
     String totalAparelhoFormat = totalAparelho.toStringAsPrecision(4);
-//    note.gasto = '$totalAparelho';
     note.gasto = '$totalAparelhoFormat';
   }
 
@@ -311,6 +326,10 @@ class _AparelhosConfigState extends State<AparelhosConfig> {
     horadiaControlled.clear();
     diamesControlled.clear();
     potenciaControlled.clear();
+    updateAll();
+  }
+
+  void updateAll() {
     updateName();
     updateQtd();
     updateHoradia();
@@ -443,7 +462,5 @@ class _AparelhosConfigState extends State<AparelhosConfig> {
 
 Future<String> getKwhPreference() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-//  String kwh = prefs.getString("kwh");
-//  return kwh;
   return prefs.getString('kwh');
 }
